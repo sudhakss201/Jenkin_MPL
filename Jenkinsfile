@@ -1,6 +1,7 @@
 node {
    def mvnHome
-   def scannerHome         
+   def scannerHome
+   def JavaHome         
    mvnHome = tool 'MAVEN_HOME'
    scannerHome = tool 'SonarScanner'
    JavaHome = tool 'JAVA_HOME'
