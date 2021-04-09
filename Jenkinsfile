@@ -1,6 +1,7 @@
 node {
    def mvnHome
    def scannerHome
+   def JavaHome
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://gitlab.com/vishnukiranreddy4/Multibranchproject.git'
@@ -9,6 +10,7 @@ node {
       // **       in the global configuration.           
       mvnHome = tool 'MAVEN_HOME'
 	  scannerHome = tool 'SonarScanner'
+     JavaHome = tool 'JAVA_HOME'
    }
    stage('CompileandPackage') {
       // Run the maven build
@@ -20,11 +22,13 @@ node {
          }
       }
    }
-   stage('CodeAnalysis') {        
+   stage('CodeAnalysis') { 
+      withEnv(["JAVA_HOME=$JavaHome"]) {       
       withSonarQubeEnv("SonarCloud") {
                      sh "${tool("SonarScanner")}/bin/sonar-scanner"
                   }
             }
+   }
    stage('DeploytoTomcat') {
       sh 'cp $(pwd)/target/*.war /opt/tomcat/webapps/'
    } 
