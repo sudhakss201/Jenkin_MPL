@@ -6,7 +6,7 @@ node {
    scannerHome = tool 'SonarScanner'
    JavaHome = tool 'JAVA_HOME'
     stage('CompileandPackage') {
-        git 'https://gitlab.com/vishnukiranreddy4/Multibranchproject.git'
+        git 'https://github.com/sudhakss201/Jenkin_MPL.git'
         sh 'mvn clean package -DskipTests'
     }    
     stage('CodeAnalysis') {
